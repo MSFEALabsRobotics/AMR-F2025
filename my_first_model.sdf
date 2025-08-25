@@ -1,0 +1,11 @@
+<sdf version="1.7">
+  <world name="default">
+    <model name="box">
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>1 1 1</size></box></geometry>
+        </visual>
+      </link>
+    </model>
+  </world>
+</sdf>
