@@ -37,3 +37,17 @@ gz sim
 ```bash
 gz sim shapes.sdf
 ```
+
+---
+
+## 🐙 Using GIt
+```bash
+git clone <repository_url>
+```
+
+**Example:**
+```bash
+git clone https://github.com/MSFEALabsRobotics/AMR-F2025
+```
+
+---
