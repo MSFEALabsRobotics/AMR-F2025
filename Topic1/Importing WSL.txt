@@ -1,0 +1,19 @@
+
+#TO INSTALL WSL
+wsl --install --no-distribution
+
+
+#TO CREATE A NEW FOLDER
+mkdir "C:\WSL\MyNewImage"
+
+#TO Import The Tar Image
+wsl --import MyNewImage "FolderPath" "ImagePath"
+example:
+wsl --import MyNewImage "C:\WSL\MyNewImage" "C:\Users\samer\Documents\AUB\AMR\mywsl.tar"
+
+
+To Test Gazebo:
+gz sim
+
+To open Shapes.sdf:
+gz sim shapes.sdf
