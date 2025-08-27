@@ -1,20 +1,39 @@
+# WSL & Gazebo Setup Guide
 
-#TO INSTALL WSL
-'''bash
+## 🖥️ Install WSL
+```bash
 wsl --install --no-distribution
+```
 
+---
 
-#TO CREATE A NEW FOLDER
+## 📂 Create a New Folder
+```bash
 mkdir "C:\WSL\MyNewImage"
+```
 
-#TO Import The Tar Image
+---
+
+## 📦 Import the Tar Image
+```bash
 wsl --import MyNewImage "FolderPath" "ImagePath"
-example:
+```
+
+**Example:**
+```bash
 wsl --import MyNewImage "C:\WSL\MyNewImage" "C:\Users\samer\Documents\AUB\AMR\mywsl.tar"
+```
 
+---
 
-To Test Gazebo:
+## 🤖 Test Gazebo
+```bash
 gz sim
+```
 
-To open Shapes.sdf:
+---
+
+## 📐 Open Shapes.sdf
+```bash
 gz sim shapes.sdf
+```
