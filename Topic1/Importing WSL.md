@@ -1,5 +1,6 @@
 
 #TO INSTALL WSL
+'''bash
 wsl --install --no-distribution
 
 
