@@ -45,7 +45,7 @@ gz topic -l
 
 ## 4️⃣ Echo the Clock Topic
 ```bash
-gz topic -e /clock
+gz topic -e --topic /clock
 ```
 
 ---
