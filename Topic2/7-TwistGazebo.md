@@ -47,7 +47,23 @@ angular:
 
 ---
 
-## 3. Drive the Robot from Gazebo Terminal
+## 3. Working with Topics in Gazebo
+
+### List all topics
+```bash
+gz topic -l
+```
+
+### Echo (see the data) of a topic
+```bash
+gz topic -e -t /model/vehicle_blue/odometry
+```
+
+This will continuously print the odometry data published by Gazebo.
+
+---
+
+## 4. Drive the Robot from Gazebo Terminal
 
 You can publish directly to the velocity command topic in Gazebo.
 
@@ -68,4 +84,4 @@ gz topic -t /cmd_vel -m gz.msgs.Twist -p "linear: {x: 0.5}, angular: {z: 0.2}"
 
 ---
 
-✅ With these commands, you can test your robot directly from Gazebo without using ROS 2.
+✅ With these commands, you can list topics, view their data, and drive your robot directly from Gazebo without using ROS 2.
