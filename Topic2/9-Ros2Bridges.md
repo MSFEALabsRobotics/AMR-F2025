@@ -1,7 +1,11 @@
-# 🚗 ROS 2 – Gazebo Bridge Tutorial
+# 🚗 ROS 2 – Gazebo Bridge & Differential Drive Robot Cheat Sheet
+
+This guide explains how to bridge **Gazebo Sim** with **ROS 2**, and details the main messages when controlling a **differential drive robot** with the DiffDrive plugin.
+
+---
 
 ## 1. List Gazebo Topics
-First, check what topics Gazebo is publishing:
+Check what topics Gazebo is publishing:
 
 ```bash
 gz topic -l
@@ -10,6 +14,7 @@ gz topic -l
 👉 Look for:
 - **Odometry** topic → e.g. `/model/vehicle_blue/odometry`
 - **Velocity command** topic → e.g. `/cmd_vel`
+- **Wheel state** topic → `/world/<world_name>/model/<robot_name>/joint_state`
 
 ---
 
@@ -23,37 +28,88 @@ ros2 run ros_gz_bridge parameter_bridge   /model/vehicle_blue/odometry@nav_msgs/
 ---
 
 ## 3. Check ROS 2 Topics
-Now verify that the topics are visible in ROS 2:
+Verify that topics are visible in ROS 2:
 
 ```bash
 ros2 topic list
 ```
 
-You should see:
+Expected:
 - `/model/vehicle_blue/odometry`
 - `/cmd_vel`
 
 ---
 
-## 4. Subscribe to Odometry
-To view odometry data from the robot:
+## 4. Velocity Command (`/cmd_vel`)
+- **Gazebo type:** `gz.msgs.Twist`  
+- **ROS 2 type:** `geometry_msgs/msg/Twist`
 
+**Fields (diff drive):**
+- `linear.x` → Forward/backward speed (m/s)  
+- `angular.z` → Rotation around vertical axis (rad/s)  
+- Other components usually `0`
+
+**Frame:** Robot base frame (`base_link`).
+
+**Example command:**
+```bash
+ros2 topic pub /cmd_vel geometry_msgs/msg/Twist   "{linear: {x: 0.3}, angular: {z: 0.1}}" -r 10
+```
+
+---
+
+## 5. Odometry (`/model/<robot_name>/odometry`)
+- **Gazebo type:** `gz.msgs.Odometry`  
+- **ROS 2 type:** `nav_msgs/msg/Odometry`
+
+### Contains:
+- **Twist:** robot’s instantaneous velocity (in `base_link`).  
+- **Pose:** robot’s position (x, y, z) and orientation (quaternion) in the **world frame**.  
+  - Pose ≈ integrated twist over time.  
+  - Errors accumulate in real robots; simulation is exact unless noise added.
+
+**View in ROS 2:**
 ```bash
 ros2 topic echo /model/vehicle_blue/odometry
 ```
 
 ---
 
-## 5. Drive the Robot
-Send velocity commands from ROS 2 to Gazebo:
-
-```bash
-ros2 topic pub /cmd_vel geometry_msgs/msg/Twist "{linear: {x: 0.3, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.1}}" -r 10
+## 6. Wheel State (Encoders / Joint State)
+Topic (Gazebo):
 ```
+/world/<world_name>/model/<robot_name>/joint_state
+```
+- **Type:** `gz.msgs.Model`  
+- Reports **joint positions** (angles), **velocities**, and **forces**.
 
-- `linear.x = 0.3` → forward speed (m/s)  
-- `angular.z = 0.1` → turning rate (rad/s)  
+**Wheel distance traveled:**
+```
+s = θ × r
+```
+- `θ` = joint position (radians)  
+- `r` = wheel radius (m)
 
 ---
 
-✅ That’s it! You can now drive your Gazebo robot using ROS 2 and monitor its odometry.
+## 7. Message Flow Diagram
+```
+/cmd_vel (Twist command)
+        ↓
+   Robot plugin
+        ↓
+Odometry Twist (velocity in base_link)
+        ↓  integrate over time
+Odometry Pose (position + orientation in world)
+        ↓
+Wheel State (joint encoders: rotation per wheel)
+```
+
+---
+
+✅ **Summary**
+- **Velocity command (`/cmd_vel`)**: tells the robot how fast to move.  
+- **Odometry Twist**: robot’s actual velocity.  
+- **Odometry Pose**: integrated position/orientation in world.  
+- **Wheel state**: encoder/joint info (how much each wheel turned).  
+- With the bridge running, you can command the robot in ROS 2 and monitor its motion from Gazebo.  
