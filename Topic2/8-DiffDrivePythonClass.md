@@ -3,6 +3,8 @@
 This tutorial shows how to implement and use a simple **differential drive kinematics class** in Python.  
 We separate the code into two files:
 
+<img width="364" height="329" alt="image" src="https://github.com/user-attachments/assets/1d8b0c25-e918-4829-91b1-2ddeb77d6230" />
+
 ---
 
 ## 1. Create the Class File
@@ -87,30 +89,10 @@ print(f"  w_r = {w_r:.2f} rad/s, w_l = {w_l:.2f} rad/s")
 
 ## 3. Robot Pose from Velocity
 
-A differential drive robot’s pose is \([x, y, \theta]\).  
-The **continuous-time equations** are:
+<img width="328" height="555" alt="image" src="https://github.com/user-attachments/assets/db881fe8-f94f-4838-af95-9e83a7e3d599" />
 
-\[
-\dot{x} = v \cos(\theta), \quad 
-\dot{y} = v \sin(\theta), \quad 
-\dot{\theta} = \omega
-\]
 
-To get the **discrete-time update** over a small timestep \(\Delta t\):
-
-\[
-x_{t+1} = x_t + v \cos(\theta_t)\Delta t
-\]  
-
-\[
-y_{t+1} = y_t + v \sin(\theta_t)\Delta t
-\]  
-
-\[
-\theta_{t+1} = \theta_t + \omega \Delta t
-\]
-
-This is called **Euler integration**.  
+This is the integration.  
 It allows us to track the robot’s path (odometry) from wheel speeds.
 
 ---
