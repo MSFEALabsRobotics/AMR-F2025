@@ -20,7 +20,7 @@ gz topic -l
 ## 2. Create the Bridges
 Use `ros_gz_bridge` to connect Gazebo and ROS 2:
 The parameter_bridge connects topics between Gazebo (gz) and ROS 2.
-- Use **the ros2 run ros_gz_bridge parameter_bridge**  Command
+- Use the   **"ros2 run ros_gz_bridge parameter_bridge"**    Command
 - The part before the @ is the topic name.
 - The first message type is the ROS 2 type.
 - The second message type is the Gazebo type.
