@@ -65,6 +65,41 @@ ros2 topic pub /cmd_vel geometry_msgs/msg/Twist   "{linear: {x: 0.3}, angular: {
 - **Gazebo type:** `gz.msgs.Odometry`  
 - **ROS 2 type:** `nav_msgs/msg/Odometry`
 
+```bash
+nav_msgs/msg/Odometry:
+  header:                     # Standard ROS 2 message header
+    stamp:                    # Time
+      sec: int32
+      nanosec: uint32
+    frame_id: string          # Reference frame (e.g., "odom")
+  child_frame_id: string      # Robot base frame (e.g., "base_link")
+
+  pose:                       # PoseWithCovariance
+    pose:                     # geometry_msgs/Pose
+      position:               # geometry_msgs/Point
+        x: float64            # Position in meters (world frame)
+        y: float64
+        z: float64
+      orientation:            # geometry_msgs/Quaternion
+        x: float64            # Orientation (quaternion form)
+        y: float64
+        z: float64
+        w: float64
+    covariance: [float64[36]] # 6x6 covariance matrix
+
+  twist:                      # TwistWithCovariance
+    twist:                    # geometry_msgs/Twist
+      linear:                 # geometry_msgs/Vector3
+        x: float64            # Linear velocity in m/s
+        y: float64
+        z: float64
+      angular:                # geometry_msgs/Vector3
+        x: float64            # Angular velocity (rad/s)
+        y: float64
+        z: float64
+    covariance: [float64[36]] # 6x6 covariance matrix
+```
+
 ### Contains:
 - a **Header**:
   -frame_id: vehicle_blue/odom → Odometry reference frame.
