@@ -109,6 +109,7 @@ nav_msgs/msg/Odometry:
   - Pose ≈ integrated twist over time.  
   - Errors accumulate in real robots; simulation is exact unless noise added.
 
+
 **View in ROS 2:**
 ```bash
 ros2 topic echo /model/vehicle_blue/odometry
