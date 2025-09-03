@@ -14,12 +14,16 @@ gz topic -l
 👉 Look for:
 - **Odometry** topic → e.g. `/model/vehicle_blue/odometry`
 - **Velocity command** topic → e.g. `/cmd_vel`
-- **Wheel state** topic → `/world/<world_name>/model/<robot_name>/joint_state`
 
 ---
 
 ## 2. Create the Bridges
 Use `ros_gz_bridge` to connect Gazebo and ROS 2:
+The parameter_bridge connects topics between Gazebo (gz) and ROS 2.
+
+- The part before the @ is the topic name.
+- The first message type is the ROS 2 type.
+- The second message type is the Gazebo type.
 
 ```bash
 ros2 run ros_gz_bridge parameter_bridge   /model/vehicle_blue/odometry@nav_msgs/msg/Odometry@gz.msgs.Odometry   /cmd_vel@geometry_msgs/msg/Twist@gz.msgs.Twist
