@@ -66,6 +66,9 @@ ros2 topic pub /cmd_vel geometry_msgs/msg/Twist   "{linear: {x: 0.3}, angular: {
 - **ROS 2 type:** `nav_msgs/msg/Odometry`
 
 ### Contains:
+- a **Header**:
+  -frame_id: vehicle_blue/odom → Odometry reference frame.
+  -child_frame_id: vehicle_blue/chassis → The robot base frame.
 - **Twist:** robot’s instantaneous velocity (in robot frame).  
 - **Pose:** robot’s position (x, y, z) and orientation (quaternion) in **world frame**.  
   - Pose ≈ integrated twist over time.  
