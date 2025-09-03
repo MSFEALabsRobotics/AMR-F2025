@@ -52,7 +52,7 @@ Expected:
 - `angular.z` → Rotation around vertical axis (rad/s)  
 - Other components usually `0`
 
-**Frame:** Robot base frame (`base_link`).
+**Frame: Robot Frame.**
 
 **Example command:**
 ```bash
@@ -66,8 +66,8 @@ ros2 topic pub /cmd_vel geometry_msgs/msg/Twist   "{linear: {x: 0.3}, angular: {
 - **ROS 2 type:** `nav_msgs/msg/Odometry`
 
 ### Contains:
-- **Twist:** robot’s instantaneous velocity (in `base_link`).  
-- **Pose:** robot’s position (x, y, z) and orientation (quaternion) in the **world frame**.  
+- **Twist:** robot’s instantaneous velocity (in robot frame).  
+- **Pose:** robot’s position (x, y, z) and orientation (quaternion) in **world frame**.  
   - Pose ≈ integrated twist over time.  
   - Errors accumulate in real robots; simulation is exact unless noise added.
 
@@ -75,44 +75,10 @@ ros2 topic pub /cmd_vel geometry_msgs/msg/Twist   "{linear: {x: 0.3}, angular: {
 ```bash
 ros2 topic echo /model/vehicle_blue/odometry
 ```
-
 ---
 
-## 6. Wheel State (Encoders / Joint State)
-Topic (Gazebo):
-```
-/world/<world_name>/model/<robot_name>/joint_state
-```
-- **Type:** `gz.msgs.Model`  
-- Reports **joint positions** (angles), **velocities**, and **forces**.
-
-**Wheel distance traveled:**
-```
-s = θ × r
-```
-- `θ` = joint position (radians)  
-- `r` = wheel radius (m)
-
----
-
-## 7. Message Flow Diagram
-```
-/cmd_vel (Twist command)
-        ↓
-   Robot plugin
-        ↓
-Odometry Twist (velocity in base_link)
-        ↓  integrate over time
-Odometry Pose (position + orientation in world)
-        ↓
-Wheel State (joint encoders: rotation per wheel)
-```
-
----
 
 ✅ **Summary**
-- **Velocity command (`/cmd_vel`)**: tells the robot how fast to move.  
+- **Velocity command (`/cmd_vel`)**: tells the robot how fast to move. (in robot frame)  
 - **Odometry Twist**: robot’s actual velocity.  
-- **Odometry Pose**: integrated position/orientation in world.  
-- **Wheel state**: encoder/joint info (how much each wheel turned).  
-- With the bridge running, you can command the robot in ROS 2 and monitor its motion from Gazebo.  
+- **Odometry Pose**: integrated position/orientation in world frame.  
