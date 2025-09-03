@@ -1,11 +1,12 @@
+#This Node (ros Program) will publish a twist message on a certain topic
 import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import Twist
 
 class CmdVelPublisher(Node):
     def __init__(self):
-        super().__init__('cmd_vel_publisher')
-        self.publisher_ = self.create_publisher(Twist, '/cmd_vel', 10) #Message/Topic/Buffer
+        super().__init__('cmd_vel_publisher') #Node name (not topic name)
+        self.publisher_ = self.create_publisher(Twist, '/cmd_vel', 10) #Message/Topic Name/Buffer
         self.timer = self.create_timer(0.5, self.timer_callback) #0.5 seconds
 
     def timer_callback(self):
