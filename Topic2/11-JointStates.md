@@ -24,13 +24,12 @@ This message contains all robot joints, including drive wheels and caster wheels
 
 ---
 
-## 2. Bridge Joint States to ROS 2
+## 2. Bridge Joint States to ROS 2 (UPDATED NOW WORKING)
 
 Run the ROS ↔ Gazebo bridge:
 
 ```bash
-ros2 run ros_gz_bridge parameter_bridge \
-  /world/car_world/model/vehicle_blue/joint_state@sensor_msgs/msg/JointState@gz.msgs.JointState
+ros2 run ros_gz_bridge parameter_bridge   /world/car_world/model/vehicle_blue/joint_state@sensor_msgs/msg/JointState@gz.msgs.Model
 ```
 
 ---
