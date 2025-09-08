@@ -24,7 +24,7 @@ ros2 run ros_gz_bridge parameter_bridge \
 
 ---
 
-## 3. BRIDGE TF FROM GAZEBO TO ROS (UPDATED, NO NEED FOR MANUAL PYTHON BRIDGE!!!!)
+## 3. BRIDGE /TF FROM GAZEBO TO ROS (UPDATED, NO NEED FOR MANUAL PYTHON BRIDGE!!!!)
 In this version of Gazebo → ROS 2, the TF transform is not automatically provided.  
 We will create a manual bridge from **Odometry → TF**.
 
