@@ -1,4 +1,8 @@
-    <model name="maze_model">
+
+<img width="856" height="638" alt="image" src="https://github.com/user-attachments/assets/983259f7-7cc7-4323-b362-d33c032a5c5a" />
+
+"""
+<model name="maze_model">
             <static>true</static>
 
             <!-- Wall 1 -->
@@ -92,3 +96,4 @@
             </link>
 
         </model>
+"""
