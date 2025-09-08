@@ -132,43 +132,7 @@ from rclpy.node import Node
 from geometry_msgs.msg import Twist
 import time
 
-class OpenLoopMaze(Node):
-    def __init__(self):
-        super().__init__('open_loop_maze')
-        self.publisher = self.create_publisher(Twist, '/cmd_vel', 10)
-        self.get_logger().info("Starting open loop maze navigation...")
 
-    def drive_forward(self, speed, duration):
-        msg = Twist()
-        msg.linear.x = speed
-        start = time.time()
-        while time.time() - start < duration:
-            self.publisher.publish(msg)
-            time.sleep(0.1)
-
-    def rotate(self, yaw_rate, duration):
-        msg = Twist()
-        msg.angular.z = yaw_rate
-        start = time.time()
-        while time.time() - start < duration:
-            self.publisher.publish(msg)
-            time.sleep(0.1)
-
-def main(args=None):
-    rclpy.init(args=args)
-    node = OpenLoopMaze()
-
-    # Example sequence: forward -> turn -> forward -> exit
-    node.drive_forward(0.3, 5)   # move ahead
-    node.rotate(0.5, 3)          # turn left
-    node.drive_forward(0.3, 6)   # go forward
-    node.rotate(-0.5, 3)         # turn right
-    node.drive_forward(0.3, 5)   # exit maze
-
-    rclpy.shutdown()
-
-if __name__ == '__main__':
-    main()
 ```
 
 ---
