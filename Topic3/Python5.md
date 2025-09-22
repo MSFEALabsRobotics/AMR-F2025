@@ -1,4 +1,4 @@
-# Bayes Filter Example in Python (Line-by-Line Explanation)
+# Bayes Filter Example in Python
 
 <img width="577" height="431" alt="image" src="https://github.com/user-attachments/assets/f8d90a65-504d-464f-a1f4-dea7640f5dbf" />
 
