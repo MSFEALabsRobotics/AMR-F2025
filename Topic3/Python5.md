@@ -1,5 +1,13 @@
 # Bayes Filter Example in Python (Line-by-Line Explanation)
 
+<img width="577" height="431" alt="image" src="https://github.com/user-attachments/assets/f8d90a65-504d-464f-a1f4-dea7640f5dbf" />
+
+---
+
+<img width="337" height="229" alt="image" src="https://github.com/user-attachments/assets/7e5c6190-a72d-4c7e-9eb6-e7f40afd946a" />
+
+---
+
 This example implements a **histogram-based Bayes filter** in a discrete 1D world with 10 cells.  
 We will go **line by line**, explaining each part of the code.
 
@@ -152,16 +160,3 @@ plt.show()
 
 ---
 
-# 📌 Summary of Formulas
-
-1. **Prediction step**:  
-\[
-\text{bel}^-(x_t) = \sum_{x_{t-1}} p(x_t \mid u_t, x_{t-1}) \, \text{bel}(x_{t-1})
-\]
-
-2. **Correction step**:  
-\[
-\text{bel}(x_t) = \eta \, p(z_t \mid x_t) \, \text{bel}^-(x_t)
-\]
-
----
