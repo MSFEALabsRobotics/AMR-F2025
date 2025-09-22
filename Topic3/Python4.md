@@ -1,5 +1,9 @@
 # Recursive Bayesian Estimation Example (Door Open/Closed)
 
+<img width="571" height="436" alt="image" src="https://github.com/user-attachments/assets/90fe58d4-4623-4ec7-b71b-ea15dc3527d8" />
+
+---
+
 <img width="373" height="188" alt="image" src="https://github.com/user-attachments/assets/097f09c4-d2fa-4eaf-bf95-feea9d895bb1" />
 
 ---
