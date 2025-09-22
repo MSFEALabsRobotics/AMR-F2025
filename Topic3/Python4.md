@@ -1,5 +1,9 @@
 # Recursive Bayesian Estimation Example (Door Open/Closed)
 
+<img width="373" height="188" alt="image" src="https://github.com/user-attachments/assets/097f09c4-d2fa-4eaf-bf95-feea9d895bb1" />
+<img width="383" height="284" alt="image" src="https://github.com/user-attachments/assets/e2382001-107a-461c-8bde-a02d5de5d760" />
+<img width="388" height="124" alt="image" src="https://github.com/user-attachments/assets/0668acaf-0f6b-4121-8fdd-9ead21801690" />
+
 This script demonstrates a **recursive Bayesian state estimation** example, where a robot tries to estimate whether a door is **open** or **closed** based on noisy sensor measurements.
 
 ---
@@ -129,48 +133,4 @@ plt.show()
 
 ---
 
-## Mathematical Formulas
-
-### Prediction Step
-
-The **prior belief** that the door is open at time *t* is:
-
-\[
-\text{prior}_t = (1 - \alpha) \cdot bel_{t-1} + \alpha \cdot (1 - bel_{t-1})
-\]
-
-Where:
-- \( bel_{t-1} \): belief at previous step.
-- \( \alpha \): probability the door flips state.
-
----
-
-### Update Step
-
-If the sensor says **open** (\( z_t = 1 \)):
-
-\[
-bel_t = \frac{P(z_t=1|x_t=\text{open}) \cdot prior_t}{P(z_t=1|x_t=\text{open}) \cdot prior_t + P(z_t=1|x_t=\text{closed}) \cdot (1 - prior_t)}
-\]
-
-If the sensor says **closed** (\( z_t = 0 \)):
-
-\[
-bel_t = \frac{P(z_t=0|x_t=\text{open}) \cdot prior_t}{P(z_t=0|x_t=\text{open}) \cdot prior_t + P(z_t=0|x_t=\text{closed}) \cdot (1 - prior_t)}
-\]
-
-Where likelihoods are:
-- \( P(z=1|x=\text{open}) = p_{z|open} = 0.8 \)
-- \( P(z=1|x=\text{closed}) = p_{z|closed} = 0.2 \)
-- \( P(z=0|x=\text{open}) = 1 - p_{z|open} = 0.2 \)
-- \( P(z=0|x=\text{closed}) = 1 - p_{z|closed} = 0.8 \)
-
----
-
-## Interpretation
-- **x_true**: the true hidden state (ground truth).
-- **z_obs**: the noisy observations from the sensor.
-- **bel**: the robot’s estimated probability (belief) that the door is open.
-
-This process is a direct implementation of the **Bayes filter**: prediction (motion model) + update (sensor model).
 
