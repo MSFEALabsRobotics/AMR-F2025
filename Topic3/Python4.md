@@ -1,0 +1,176 @@
+# Recursive Bayesian Estimation Example (Door Open/Closed)
+
+This script demonstrates a **recursive Bayesian state estimation** example, where a robot tries to estimate whether a door is **open** or **closed** based on noisy sensor measurements.
+
+---
+
+## Code Explanation (Line by Line)
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+```
+- Import **NumPy** for random numbers & arrays, and **Matplotlib** for plotting.
+
+```python
+rng = np.random.default_rng(7)
+print(rng)
+```
+- Create a random number generator with seed `7` (results reproducible).
+- Printing shows the generator object.
+
+```python
+T = 30
+alpha = 0.1
+p_z_open_given_open = 0.8
+p_z_open_given_closed = 0.2
+```
+- `T = 30`: number of time steps.
+- `alpha = 0.1`: probability the **door flips state**.
+- `p_z_open_given_open = 0.8`: sensor says “open” correctly 80% of the time.
+- `p_z_open_given_closed = 0.2`: false alarm, sensor says “open” 20% of the time when door is closed.
+
+```python
+x_true = np.zeros(T, dtype=int)
+z_obs = np.zeros(T, dtype=int)  # 1=open reading
+x_true[0] = 1  # start open
+```
+- `x_true`: true door state (1=open, 0=closed).
+- `z_obs`: sensor observations (1=open reading).
+- Start with door **open**.
+
+```python
+for t in range(1, T):
+    if rng.random() < alpha:      # with probability alpha
+        x_true[t] = 1 - x_true[t-1]  # flip state
+    else:
+        x_true[t] = x_true[t-1]      # keep same state
+```
+- Simulates the true door state:
+  - With 10% chance, the door flips.
+  - Otherwise, it stays the same.
+
+```python
+for t in range(T):
+    if x_true[t] == 1:
+        z_obs[t] = rng.random() < p_z_open_given_open
+    else:
+        z_obs[t] = rng.random() < p_z_open_given_closed
+```
+- Simulates **sensor readings**:
+  - If door is open → sensor says open 80% of the time.
+  - If door is closed → sensor says open 20% of the time.
+
+```python
+bel = np.zeros(T)  # belief P(open)
+bel[0] = 0.5
+```
+- `bel`: robot’s belief (probability door is open).
+- Start with **50% uncertainty**.
+
+```python
+for t in range(1, T):
+    # Predict
+    prior_open = (1-alpha)*bel[t-1] + alpha*(1-bel[t-1])
+```
+- **Prediction step**: compute prior belief before sensor update.
+- With probability `1-alpha`, door stays in same state.
+- With probability `alpha`, door flips.
+
+```python
+    # Update
+    if z_obs[t] == 1:
+        num = p_z_open_given_open * prior_open
+        den = p_z_open_given_open*prior_open + p_z_open_given_closed*(1-prior_open)
+    else:
+        p_z_closed_given_open = 1 - p_z_open_given_open
+        p_z_closed_given_closed = 1 - p_z_open_given_closed
+        num = p_z_closed_given_open * prior_open
+        den = p_z_closed_given_open*prior_open + p_z_closed_given_closed*(1-prior_open)
+    bel[t] = num / den
+```
+- **Update step** (Bayes rule):
+  - If sensor says **open**, update using likelihoods.
+  - If sensor says **closed**, use complementary probabilities.
+  - Normalize with denominator.
+
+```python
+fig, axs = plt.subplots(3, 1, figsize=(10, 6), sharex=True)
+```
+- Create 3 stacked plots.
+
+```python
+axs[0].step(range(T), x_true, where="mid")
+axs[0].set_ylabel("True state\n(1=open,0=closed)")
+axs[0].set_ylim(-0.2, 1.2)
+```
+- Plot **true state**.
+
+```python
+axs[1].step(range(T), z_obs, where="mid", color="orange")
+axs[1].set_ylabel("Observation\n(1=open,0=closed)")
+axs[1].set_ylim(-0.2, 1.2)
+```
+- Plot **sensor readings**.
+
+```python
+axs[2].plot(range(T), bel, marker="o")
+axs[2].set_ylabel("Belief P(open)")
+axs[2].set_xlabel("Time step")
+axs[2].set_ylim(-0.05, 1.05)
+```
+- Plot **belief evolution**.
+
+```python
+plt.tight_layout()
+plt.show()
+```
+- Display plots.
+
+---
+
+## Mathematical Formulas
+
+### Prediction Step
+
+The **prior belief** that the door is open at time *t* is:
+
+\[
+\text{prior}_t = (1 - \alpha) \cdot bel_{t-1} + \alpha \cdot (1 - bel_{t-1})
+\]
+
+Where:
+- \( bel_{t-1} \): belief at previous step.
+- \( \alpha \): probability the door flips state.
+
+---
+
+### Update Step
+
+If the sensor says **open** (\( z_t = 1 \)):
+
+\[
+bel_t = \frac{P(z_t=1|x_t=\text{open}) \cdot prior_t}{P(z_t=1|x_t=\text{open}) \cdot prior_t + P(z_t=1|x_t=\text{closed}) \cdot (1 - prior_t)}
+\]
+
+If the sensor says **closed** (\( z_t = 0 \)):
+
+\[
+bel_t = \frac{P(z_t=0|x_t=\text{open}) \cdot prior_t}{P(z_t=0|x_t=\text{open}) \cdot prior_t + P(z_t=0|x_t=\text{closed}) \cdot (1 - prior_t)}
+\]
+
+Where likelihoods are:
+- \( P(z=1|x=\text{open}) = p_{z|open} = 0.8 \)
+- \( P(z=1|x=\text{closed}) = p_{z|closed} = 0.2 \)
+- \( P(z=0|x=\text{open}) = 1 - p_{z|open} = 0.2 \)
+- \( P(z=0|x=\text{closed}) = 1 - p_{z|closed} = 0.8 \)
+
+---
+
+## Interpretation
+- **x_true**: the true hidden state (ground truth).
+- **z_obs**: the noisy observations from the sensor.
+- **bel**: the robot’s estimated probability (belief) that the door is open.
+
+This process is a direct implementation of the **Bayes filter**: prediction (motion model) + update (sensor model).
+
