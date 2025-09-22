@@ -1,8 +1,11 @@
 # Recursive Bayesian Estimation Example (Door Open/Closed)
 
 <img width="373" height="188" alt="image" src="https://github.com/user-attachments/assets/097f09c4-d2fa-4eaf-bf95-feea9d895bb1" />
+---
 <img width="383" height="284" alt="image" src="https://github.com/user-attachments/assets/e2382001-107a-461c-8bde-a02d5de5d760" />
+---
 <img width="388" height="124" alt="image" src="https://github.com/user-attachments/assets/0668acaf-0f6b-4121-8fdd-9ead21801690" />
+---
 
 This script demonstrates a **recursive Bayesian state estimation** example, where a robot tries to estimate whether a door is **open** or **closed** based on noisy sensor measurements.
 
