@@ -96,6 +96,16 @@ for t in range(1, T):
         print(f"Step {t}: Prediction = {x_pred:.2f}, Measurement = {measurements[t]:.2f}, Update = {x_est[t]:.2f}, K = {K:.2f}")
 ```
 
+### 🔎 Example Output for Step 1
+```
+Step 1: Prediction = 0.00, Measurement = 0.40, Update = 0.32, K = 0.80
+```
+
+- **Prediction = 0.00** → The predicted position (from initial guess).  
+- **Measurement = 0.40** → The noisy sensor reading at step 1.  
+- **Update = 0.32** → The corrected estimate, between prediction and measurement.  
+- **K = 0.80** → The Kalman Gain, showing the filter trusts the measurement more (since uncertainty was high initially).  
+
 ---
 
 ## 📝 Step 5: Plot Results
