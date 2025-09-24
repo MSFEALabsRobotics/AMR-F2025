@@ -5,7 +5,7 @@ The EKF handles **nonlinear motion models** by linearizing them with a **Jacobia
 
 ⚠️ **Note on visualization:**  
 Although the robot's state is **2D position + orientation**, we show the results in a **2D plot** of $(x,y)$ positions.  
-This makes it easier to compare true path, predictions, and EKF estimates.
+We also show the noisy **range measurements** vs time in a separate plot.  
 
 ---
 
@@ -79,6 +79,12 @@ plt.scatter(true_states[:,0], true_states[:,1], c="blue", s=5)
 plt.title("True Circular Motion Path")
 plt.legend()
 plt.show()
+
+plt.plot(measurements, "o", alpha=0.5, label="Noisy Range Measurements")
+plt.plot([measurement_model(s)[0] for s in true_states], label="True Range")
+plt.legend()
+plt.title("Noisy vs True Range Measurements")
+plt.show()
 ```
 
 ---
@@ -130,15 +136,26 @@ print("First update:", estimates[0])
 
 ## 📝 Step 5: Plot Results
 
+We plot both the **path** and the **range measurements**.
+
 ```python
 estimates = np.array(estimates)
 predictions = np.array(predictions)
 
+# Path in XY
 plt.plot(true_states[:,0], true_states[:,1], label="True Path")
 plt.plot(predictions[:,0], predictions[:,1], "--", label="Predictions (before update)")
 plt.plot(estimates[:,0], estimates[:,1], label="EKF Estimate (after update)")
 plt.legend()
 plt.title("Extended Kalman Filter (Circular Motion)")
+plt.show()
+
+# Range over time
+plt.plot([measurement_model(s)[0] for s in true_states], label="True Range")
+plt.plot(measurements, "o", alpha=0.5, label="Noisy Measurements")
+plt.plot([measurement_model(e) for e in estimates], label="EKF Predicted Range")
+plt.legend()
+plt.title("Range Measurements vs Time")
 plt.show()
 ```
 
@@ -149,5 +166,6 @@ plt.show()
 1. Change the angular velocity. How does EKF behave?  
 2. Increase measurement noise $R$. What happens to Kalman Gain $K$?  
 3. Compare prediction vs update paths. What do you notice?  
+4. In the range plot, compare noisy vs EKF-predicted ranges.  
 
 ---
