@@ -7,27 +7,40 @@ The goal is to see how the KF fuses **predictions** and **noisy measurements** i
 
 ## 📘 Step 1: Formulas
 
-We assume the state is **position** \(x_t\).  
-Measurements are noisy observations \(z_t\).  
+We assume the state is **position** $x_t$.  
+Measurements are noisy observations $z_t$.  
 
-**Prediction:**  
-\[
+### 📘 Prediction Step
+
+$$
 x_t^- = x_{t-1}
-\]  
-\[
-P_t^- = P_{t-1} + Q
-\]  
+$$
 
-**Update (Correction):**  
-\[
+$$
+P_t^- = P_{t-1} + Q
+$$
+
+---
+
+### 📘 Update (Correction) Step
+
+**Kalman Gain:**
+
+$$
 K_t = \frac{P_t^-}{P_t^- + R}
-\]  
-\[
-x_t = x_t^- + K_t \, (z_t - x_t^-)
-\]  
-\[
+$$
+
+**State Update:**
+
+$$
+x_t = x_t^- + K_t (z_t - x_t^-)
+$$
+
+**Covariance Update:**
+
+$$
 P_t = (1 - K_t) P_t^-
-\]  
+$$
 
 ---
 
