@@ -46,10 +46,10 @@ usbipd bind --busid <BUSID>
 usbipd attach --wsl --busid <BUSID> --distribution AMR
 ```
 
-Example:
+Example (Make sure you have at least one WSL terminal Open):
 ```powershell
 usbipd bind --busid 1-7
-usbipd attach --wsl --busid 1-7   (Make sure you have at least one WSL terminal Open)
+usbipd attach --wsl --busid 1-7   
 ```
 
 ---
