@@ -1,7 +1,13 @@
 # Exercise 1 – Kalman Filter (1D Position Tracking)
 
 In this exercise, we implement a simple **Kalman Filter (KF)** to estimate the 1D position of a robot moving in a straight line.  
-The goal is to see how the KF fuses **predictions** and **noisy measurements** into a smoother estimate.
+
+⚠️ **Note on visualization:**  
+Although the system is **1D** (state = position along a line), we show the results in a **2D time-series plot**:  
+- **x-axis** = time steps  
+- **y-axis** = position values (true, noisy, predicted, estimated)  
+
+This makes it easier to compare how the filter evolves over time.
 
 ---
 
@@ -64,7 +70,7 @@ print("First 5 noisy measurements:", measurements[:5])
 plt.plot(true_pos, label="True Position")
 plt.plot(measurements, "o", alpha=0.5, label="Measurements")
 plt.legend()
-plt.title("True vs Noisy Measurements")
+plt.title("True vs Noisy Measurements (1D state shown as 2D plot)")
 plt.show()
 ```
 
@@ -72,11 +78,12 @@ plt.show()
 
 ## 📝 Step 3: Initialize the Filter
 
-We define arrays for the estimated state `x_est` and its uncertainty `P`.  
+We define arrays for the estimated state `x_est`, predicted state `x_pred_all`, and their uncertainty `P`.  
 We also set noise values `Q` (process) and `R` (measurement).
 
 ```python
 x_est = np.zeros(T)
+x_pred_all = np.zeros(T)
 P = np.zeros(T)
 x_est[0] = 0      # initial guess
 P[0] = 1          # initial uncertainty
@@ -91,13 +98,17 @@ print("Initial uncertainty P0 =", P[0])
 
 ## 📝 Step 4: Recursive Kalman Loop
 
-We apply **predict** then **update** at each time step.
+We apply **predict** then **update** at each time step.  
+We also store the predictions before the update for visualization.
 
 ```python
 for t in range(1, T):
     # Predict
     x_pred = x_est[t-1]
     P_pred = P[t-1] + Q
+
+    # Store prediction
+    x_pred_all[t] = x_pred
 
     # Update
     K = P_pred / (P_pred + R)
@@ -123,14 +134,15 @@ Step 1: Prediction = 0.00, Measurement = 0.40, Update = 0.32, K = 0.80
 
 ## 📝 Step 5: Plot Results
 
-We compare true position, noisy measurements, and KF estimates.
+We compare true position, noisy measurements, **predictions**, and KF **estimates**.
 
 ```python
 plt.plot(true_pos, label="True Position")
 plt.plot(measurements, "o", alpha=0.5, label="Measurements")
-plt.plot(x_est, label="KF Estimate")
+plt.plot(x_pred_all, "--", label="Predictions (before update)")
+plt.plot(x_est, label="KF Estimate (after update)")
 plt.legend()
-plt.title("Kalman Filter Result")
+plt.title("Kalman Filter Result (with Predictions)")
 plt.show()
 ```
 
@@ -146,5 +158,8 @@ plt.show()
 
 3. Try increasing **process noise Q**.  
    - How does the estimate respond?  
+
+4. Compare the **prediction curve** vs **update curve**.  
+   - What do you notice about their relationship to the measurements?  
 
 ---
