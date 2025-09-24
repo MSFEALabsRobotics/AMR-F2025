@@ -44,6 +44,15 @@ np.random.seed(0)
 T = 50
 true_pos = np.linspace(0, 10, T)
 measurements = true_pos + np.random.normal(0, 0.5, T)
+
+print("First 5 true positions:", true_pos[:5])
+print("First 5 noisy measurements:", measurements[:5])
+
+plt.plot(true_pos, label="True Position")
+plt.plot(measurements, "o", alpha=0.5, label="Measurements")
+plt.legend()
+plt.title("True vs Noisy Measurements")
+plt.show()
 ```
 
 ---
@@ -60,6 +69,9 @@ x_est[0] = 0      # initial guess
 P[0] = 1          # initial uncertainty
 Q = 0.01          # process noise
 R = 0.25          # measurement noise
+
+print("Initial guess x0 =", x_est[0])
+print("Initial uncertainty P0 =", P[0])
 ```
 
 ---
@@ -78,6 +90,10 @@ for t in range(1, T):
     K = P_pred / (P_pred + R)
     x_est[t] = x_pred + K * (measurements[t] - x_pred)
     P[t] = (1 - K) * P_pred
+
+    # Print first few iterations for clarity
+    if t < 5:
+        print(f"Step {t}: Prediction = {x_pred:.2f}, Measurement = {measurements[t]:.2f}, Update = {x_est[t]:.2f}, K = {K:.2f}")
 ```
 
 ---
@@ -91,6 +107,7 @@ plt.plot(true_pos, label="True Position")
 plt.plot(measurements, "o", alpha=0.5, label="Measurements")
 plt.plot(x_est, label="KF Estimate")
 plt.legend()
+plt.title("Kalman Filter Result")
 plt.show()
 ```
 
