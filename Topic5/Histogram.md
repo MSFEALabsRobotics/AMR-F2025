@@ -71,15 +71,4 @@ plt.show()
 
 ---
 
-## 📊 Expected Result
-- The belief starts flat (uniform).
-- After each motion, the belief shifts right (prediction).
-- After each update, the belief **sharpens near landmarks**.
-- Observe how combining prediction and measurement yields localization.
 
----
-
-## 🧠 Try This
-- Change `landmarks` to `[1, 5, 8]` and observe.
-- Reduce motion accuracy to `p_move = 0.6`.
-- Use `update(bel, False)` to simulate when no landmark is detected.
