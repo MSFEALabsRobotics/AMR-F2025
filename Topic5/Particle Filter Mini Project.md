@@ -1,4 +1,4 @@
-# Exercise: 1D Particle Filter Localization with a Binary Side Sensor (Continuous State)
+# 1D Particle Filter Localization with a Binary Side Sensor (Continuous State)
 
 ## Goal
 Implement a **particle filter (PF)** in Python that localizes a robot moving on a **1D continuous track** using a **binary side ultrasonic sensor** 
