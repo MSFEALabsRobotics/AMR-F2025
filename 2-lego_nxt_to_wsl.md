@@ -43,13 +43,13 @@ Still in PowerShell (Admin):
 
 ```powershell
 usbipd bind --busid <BUSID>
-usbipd attach --wsl --busid <BUSID> --distribution AMR
+usbipd attach --wsl=Distribution --busid 1-10
 ```
 
 Example (Make sure you have at least one WSL terminal Open):
 ```powershell
 usbipd bind --busid 1-7
-usbipd attach --wsl --busid 1-7   
+usbipd attach --wsl=AMR --busid 1-7  
 ```
 
 ---
