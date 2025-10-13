@@ -75,29 +75,40 @@ Bus 001 Device 004: ID 0694:0002 Lego Group Mindstorms NXT
 ---
 
 ## 5. Install Python support in WSL
-Run inside `AMR`:
 
-```bash
-sudo apt update
-sudo apt install libusb-0.1-4 libusb-dev python3-pip -y
-pip install nxt-python
-```
+1. **Verify that the LEGO brick is detected**
+   ```bash
+   lsusb
+   ```
+   You should see a line like:
+   ```
+   Bus 001 Device 002: ID 0694:0002 Lego Group Mindstorms NXT
+   ```
 
----
+2. **Create a udev rule to grant access**
+   ```bash
+   sudo nano /etc/udev/rules.d/99-lego-nxt.rules
+   ```
+   Add this line inside the file:
+   ```
+   SUBSYSTEM=="usb", ATTR{idVendor}=="0694", ATTR{idProduct}=="0002", MODE="0666"
+   ```
 
-## 6. Test the connection
-Run this quick Python test:
+3. **Reload the udev rules and trigger**
+   ```bash
+   sudo udevadm control --reload-rules
+   sudo udevadm trigger
+   ```
 
-```bash
-python3 - <<'EOF'
-import nxt.locator
-brick = nxt.locator.find()
-print("Connected to:", brick.get_device_info())
-EOF
-```
+4. **Run your LEGO test script**
+   - If `nxt` module is not found, install it:
+     ```bash
+     pip install nxt-python
+     ```
+   - Then run:
+     ```bash
+     python3 helloLego.py
+     ```
 
-If successful, it will print the NXT brick name and details.
+You should now see your NXT brick connecting successfully.
 
----
-
-✅ Now you can run your **Hello Tacho** or any control scripts directly from WSL.
