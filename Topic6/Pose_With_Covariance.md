@@ -1,4 +1,6 @@
-# Pose With Covariance in ROS 2 + RViz (Student Mini‑Guide)
+<img width="911" height="587" alt="image" src="https://github.com/user-attachments/assets/2c662513-6ce8-44e9-97be-ffbd85d754c0" />
+
+# Pose With Covariance in ROS 2 + RViz 
 
 ## 1) What is a “pose with covariance”?
 - **Pose** = position *(x, y, z)* + orientation *(roll, pitch, yaw)* of the robot in some frame (e.g., `map`, `odom`).  
@@ -45,11 +47,9 @@ msg.pose.covariance = cov
 ## 3) Run the relay and check the topic (terminal)
 1) Run the node (pick **one** of the options):
 ```bash
-# Option A: run as a Python script (same shell where your ROS 2 env is sourced)
+# Option A: run as a Python script (check appendix below)
 python3 add_cov_relay.py
 
-# Option B: if you installed it as a ROS 2 package executable:
-ros2 run my_pkg add_cov_relay
 ```
 2) Verify the output message type:
 ```bash
