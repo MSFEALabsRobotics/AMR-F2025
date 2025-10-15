@@ -101,9 +101,50 @@ ros2 topic echo /belief/pose --qos-durability volatile --qos-reliability reliabl
 
 ---
 
-## 6) Quick FAQ
-- **Why add covariance at all?** RViz uses it to draw **uncertainty ellipses**. Many filters (EKF/UKF/PF) also expect proper covariances.
-- **Is the matrix only diagonal?** Here we set only the diagonal (**no cross‑correlation**). You can fill **off‑diagonals** (e.g., `cov[1]` for `cov(x,y)`) if your estimator knows them.
-- **2‑D robot?** Set tiny variances for `z/roll/pitch` and focus on `x, y, yaw`.
 
-Happy plotting! 🎯
+## Appendix: Full Python Relay Code
+
+> Save as `add_cov_relay.py` (or include in your ROS 2 package) and run after sourcing your ROS 2 workspace.
+
+```python
+#!/usr/bin/env python3
+import rclpy
+from rclpy.node import Node
+from nav_msgs.msg import Odometry
+from geometry_msgs.msg import PoseWithCovarianceStamped
+
+class AddCovRelay(Node):
+    def __init__(self):
+        super().__init__('add_cov_relay')
+        # Simple params (change here if needed)
+        self.in_topic = '/model/vehicle_blue/odometry'
+        self.out_topic = '/belief/pose'
+        self.sub = self.create_subscription(Odometry, self.in_topic, self.cb, 10)
+        self.pub = self.create_publisher(PoseWithCovarianceStamped, self.out_topic, 10)
+        self.get_logger().info(f"Relaying {self.in_topic} -> {self.out_topic} (2D covariance)")
+
+    def cb(self, odom: Odometry):
+        msg = PoseWithCovarianceStamped()
+        msg.header = odom.header
+        msg.pose.pose = odom.pose.pose
+
+        # 6x6 covariance for [x y z roll pitch yaw] (row-major)
+        cov = [0.0]*36
+        cov[0]  = 0.04   # var(x)   -> σ≈0.20 m
+        cov[7]  = 0.8    # var(y)   -> σ≈0.89 m
+        cov[14] = 1e-9   # var(z)   -> tiny to stay 2-D
+        cov[21] = 1e-9   # var(roll)
+        cov[28] = 1e-9   # var(pitch)
+        cov[35] = 0.4    # var(yaw) -> σ≈0.63 rad (~36°)
+        msg.pose.covariance = cov
+
+        self.pub.publish(msg)
+
+def main():
+    rclpy.init()
+    rclpy.spin(AddCovRelay())
+    rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
+```
