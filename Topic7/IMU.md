@@ -1,6 +1,5 @@
 # Add an IMU in Gazebo Sim and Bridge It to ROS 2
 
-This short tutorial shows how to (1) enable the IMU system in a Gazebo world, (2) add an IMU sensor to your robot’s SDF, (3) verify the Gazebo topic, and (4) bridge it to ROS 2 as `sensor_msgs/Imu`. A final section summarizes the ROS 2 IMU message fields.
 
 ---
 
