@@ -1,8 +1,5 @@
 # Add a 2D LiDAR in Gazebo (gz-sim), Bridge to ROS 2, and Visualize in RViz
 
-This hands-on guide shows how to mount a **2D GPU LiDAR** on `vehicle_blue`, enable the sensors system, **bridge** the topics to ROS 2, visualize **LaserScan** and **PointCloud2** in **RViz**, and make a small **Python ROS 2 node** that subscribes to the LiDAR points to plot a live scatter + a simple “front-distance” estimate.
-
-> Tested concepts: gz-sim 8+, ROS 2 (Humble/Jazzy style), `ros_gz_bridge`, RViz, `sensor_msgs/LaserScan`, `sensor_msgs/PointCloud2`.
 
 ---
 
