@@ -116,7 +116,6 @@ ros2 run ros_gz_bridge parameter_bridge \
   /lidar/points@sensor_msgs/msg/PointCloud2@gz.msgs.PointCloudPacked
 ```
 
-> Tip: Add `--ros-args -r __ns:=/my_robot` if you want a namespace.
 
 Verify in ROS 2:
 
