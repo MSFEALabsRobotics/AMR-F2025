@@ -1,3 +1,6 @@
+<img width="962" height="581" alt="image" src="https://github.com/user-attachments/assets/6cd4dfd8-0bc1-4370-9e56-1530f8e42132" />
+
+
 # Add a 2D LiDAR in Gazebo (gz-sim), Bridge to ROS 2, and Visualize in RViz
 
 
