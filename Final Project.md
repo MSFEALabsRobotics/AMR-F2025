@@ -12,7 +12,7 @@ You may use **any hardware/software** you like (ROS or NON ROS), but based on th
 ## Learning Goals
 - Apply **mobile-robot kinematics & control** to navigate safely (e.g., differential-drive constraints, nonholonomy).
 - Implement **recursive state estimation** (prediction + update) for localization and mapping.
-- Compare/choose between **Gaussian filters** (EKF/UKF) and **non‑parametric filters** (Histogram/Particle) for SLAM and global relocalization.
+- Compare/choose between **Gaussian filters** (EKF/UKF) and **non‑parametric filters** (Particle) for SLAM and global relocalization.
 
 ---
 
@@ -56,7 +56,7 @@ You may use **any hardware/software** you like (ROS or NON ROS), but based on th
 ### Report (Explaining your strategy)
 1. **Problem & system overview** (robot, sensors, actuation, kinematics).  
 2. **Models:** motion model, sensor model, and **Bayes filter** formulation (state, control, measurement, belief).  
-3. **Estimator choice:** KF/EKF/UKF vs Particle/Histogram; justify with **linearity**, **uncertainty**, **multimodality**.  
+3. **Estimator choice:** KF/EKF/UKF vs Particle; justify with **linearity**, **uncertainty**, **multimodality**.  
 4. **Mapping:** occupancy‑grid (log‑odds) or feature map; include update equations.  
 5. **Navigation & control:** planner + controller; note non‑holonomic constraints if diff‑drive.  
 6. **Experiments:** timing tables, success rate, map quality metrics (see below), failure cases, parameter sweeps.
