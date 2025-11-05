@@ -107,3 +107,16 @@ You may use **any hardware/software** you like (ROS or NON ROS), but based on th
 
 ---
 
+### RPI HARDWARE
+
+-USB C Cable for powering (5A high power)
+-Power Bank To power remotely
+-microSD card (A1/A2, 32–128 GB) + USB card reader
+-micro-HDMI → HDMI cable (two if dual display)
+-Active cooler or case with fan
+-Raspberry Pi Camera Module 3 (Optional If you need visual feedback)
+
+### Room Policy
+
+-1 member per team gets room access.
+-Don't use hardware not for the course (drones, other PIs, room hardware)
