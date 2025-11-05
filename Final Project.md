@@ -1,5 +1,8 @@
 # Final Project — Maze SLAM & Relocalization Challenge
 
+<img width="1920" height="933" alt="image" src="https://github.com/user-attachments/assets/5bef4ab2-7c63-4364-af11-69699817ba83" />
+<img width="1099" height="705" alt="image" src="https://github.com/user-attachments/assets/91d9c132-47cf-4699-a5b0-1e8144a3f26c" />
+
 ## Overview
 You will be given a **physical maze**. Your job is to:
 1) **Build a simulated twin** of that maze in Gazebo using **`.sdf`** (simulate what you will test physically).
