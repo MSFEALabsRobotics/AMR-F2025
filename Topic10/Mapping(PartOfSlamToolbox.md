@@ -20,7 +20,6 @@ ros2 run teleop_twist_keyboard teleop_twist_keyboard
 ```
 
 
-# ROS 2 Map Topic & Python Viewer (One-Pager)
 
 ## Commands
 ```bash
