@@ -1,4 +1,4 @@
-# TB3 Mapping + Relocalization in Nav2 (ROS2 Jazzy)
+# Mapping + Relocalization in Nav2 (ROS2 Jazzy)
 
 ## 0. One-time fix: comment `route_server` in Nav2
 
