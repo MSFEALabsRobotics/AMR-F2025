@@ -30,27 +30,6 @@ In that file:
    ]
    ```
 
-2. (Optional but recommended) **Comment the `route_server` node blocks**  
-   Search for `route_server` and comment the two blocks that start with:
-
-   ```python
-   Node(
-       package='nav2_route',
-       executable='route_server',
-       ...
-   )
-   ```
-
-   and
-
-   ```python
-   ComposableNode(
-       package='nav2_route',
-       plugin='nav2_route::RouteServer',
-       ...
-   )
-   ```
-
 Save and exit.
 
 ---
