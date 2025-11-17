@@ -62,7 +62,7 @@ These are your static map.
 Next time, you don’t run SLAM; you start Nav2 in localization mode with the saved map:
 
 ```bash
-ros2 launch nav2_bringup tb3_simulation_launch.py   slam:=False   map:=/full/path/to/my_maze.yaml
+ros2 launch nav2_bringup tb3_simulation_launch.py   slam:=False headless:=Flase  map:=/full/path/to/my_maze.yaml
 ```
 
 Then in RViz:
