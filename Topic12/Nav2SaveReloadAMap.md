@@ -39,7 +39,7 @@ Save and exit.
 Start the TB3 sim with SLAM enabled:
 
 ```bash
-ros2 launch nav2_bringup tb3_simulation_launch.py slam:=True headless:=Flase
+ros2 launch nav2_bringup tb3_simulation_launch.py slam:=True headless:=False
 ```
 
 Drive the robot around until you are happy with the map, then save it:
